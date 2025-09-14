@@ -10,8 +10,6 @@ WORKDIR /app
 # Копируем зависимости
 COPY requirements.txt .
 
-# Устанавливаем pip зависимости
-RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 # Копируем весь проект
