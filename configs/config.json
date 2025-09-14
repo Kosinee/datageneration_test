@@ -1,0 +1,41 @@
+{
+  "models": {
+    "llama3_8b_open": {
+      "hf_model_name": "meta-llama/Llama-3.1-8B-Instruct",
+      "vllm_params": {
+        "gpu_memory_utilization": 0.9,
+        "max_model_len": 8192,
+        "tensor_parallel_size": 1,
+        "trust_remote_code": true
+      },
+      "sampling_params": {
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "max_tokens": 512
+    },
+
+    "private_guard_model": {
+      "hf_model_name": "fanyin3639/bingoguard-llama-8b",
+      "vllm_params": {
+        "gpu_memory_utilization": 0.9,
+        "max_model_len": 8192,
+        "tensor_parallel_size": 1,
+        "trust_remote_code": true
+      },
+      "sampling_params": {
+        "temperature": 0.2,
+        "top_p": 0.95
+      },
+      "max_tokens": 256
+    }
+  },
+
+  "prompts": [
+    "Сгенерируй 5 безопасных советов по кибергигиене.",
+    "Объясни разницу между zero-shot и few-shot в 3 предложениях.",
+    "Дай 3 идеи безопастных синтетических данных для классификатора токсичности."
+  ],
+
+  "output_path": "outputs"
+}
