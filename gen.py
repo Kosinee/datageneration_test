@@ -11,22 +11,28 @@ class GenericModel:
     def __init__(self, hf_model_name, vllm_params, sampling_params, max_tokens=512):
         self.hf_model_name = hf_model_name
 
-        # Prevent duplicate trust_remote_code
-        vllm_params = dict(vllm_params)  # copy to avoid mutating original
+        # предотвращаем дублирование trust_remote_code
+        vllm_params = dict(vllm_params)
         vllm_params.pop("trust_remote_code", None)
+
+        import torch
+        device = "cuda" if torch.cuda.is_available() else "cpu"
 
         self.model = LLM(
             model=hf_model_name,
             dtype="auto",
             tokenizer_mode="auto",
             trust_remote_code=True,
+            device=device,
             **vllm_params
         )
+
         self.tokenizer = AutoTokenizer.from_pretrained(hf_model_name, trust_remote_code=True)
         self.sampling_params = SamplingParams(
             max_tokens=max_tokens,
             **sampling_params
         )
+
 
     def score(self, prompts):
         try:

@@ -1,4 +1,7 @@
-torch==2.7.1
+# PyTorch с поддержкой CUDA 12.1
+torch==2.7.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+
+# Остальные зависимости
 numpy==2.1.2
 tqdm==4.66.5
 transformers==4.56.1
@@ -8,3 +11,4 @@ safetensors==0.6.2
 sentencepiece==0.2.1
 protobuf==6.32.0
 vllm==0.10.1.1
+
