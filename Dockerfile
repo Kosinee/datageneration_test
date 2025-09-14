@@ -10,7 +10,11 @@ WORKDIR /app
 # Копируем зависимости
 COPY requirements.txt .
 
-RUN pip3 install --break-system-packages -r requirements.txt
+RUN pip3 install --upgrade pip --break-system-packages
+RUN pip3 install torch==2.7.1+cu121 --index-url https://download.pytorch.org/whl/cu121 --break-system-packages
+
+# Устанавливаем остальные зависимости
+RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages
 
 # Копируем весь проект
 COPY . .
