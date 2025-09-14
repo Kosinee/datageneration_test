@@ -6,6 +6,10 @@ from pathlib import Path
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
 
+from huggingface_hub import HfApi
+from huggingface_hub.commands.user import _login
+
+_login(HfApi(), token="")
 
 class GenericModel:
     def __init__(self, hf_model_name, vllm_params, sampling_params, max_tokens=512):
