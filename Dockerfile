@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install system dependencies
-RUN apt-get update && pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && pip install -r requirements.txt
 
 COPY . .
 
