@@ -57,28 +57,17 @@ def main():
     with open(args.config, encoding="utf-8") as f:
         cfg = json.load(f)
 
-    sa = os.environ.get("SLURM_ARRAY_TASK_ID", "")
-    if not sa.isdigit():
-        raise RuntimeError(
-            "SLURM_ARRAY_TASK_ID не задан. Запускай через job-array (sbatch --array=0-(M-1))."
-        )
-    model_index = int(sa)
-
     models_cfg_all = cfg["models"]
     model_keys = list(models_cfg_all.keys())
 
-    if not (0 <= model_index < len(model_keys)):
-        print(f"[WARN] SLURM_ARRAY_TASK_ID={model_index} вне диапазона 0..{len(model_keys)-1}. Завершение.")
-        return
 
-    model_key = model_keys[model_index]
+    model_key = model_keys[0]
     m = models_cfg_all[model_key]
 
     prompts = cfg["prompts"]
     out_dir = Path(cfg["output_path"])
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"[INFO] JobID={os.environ.get('SLURM_JOB_ID','?')}  ArrayIndex={model_index}  ModelKey={model_key}")
 
     model = GenericModel(
         hf_model_name=m["hf_model_name"],
