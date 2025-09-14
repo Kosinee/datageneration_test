@@ -10,4 +10,4 @@ RUN apt-get update && pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run the ingestion script
-ENTRYPOINT ["python", "gen.py", "--config" "configs/config.json"]
+ENTRYPOINT ["python", "gen.py", "--config", "configs/config.json"]
