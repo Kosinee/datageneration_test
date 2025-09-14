@@ -10,6 +10,11 @@ from transformers import AutoTokenizer
 class GenericModel:
     def __init__(self, hf_model_name, vllm_params, sampling_params, max_tokens=512):
         self.hf_model_name = hf_model_name
+
+        # Prevent duplicate trust_remote_code
+        vllm_params = dict(vllm_params)  # copy to avoid mutating original
+        vllm_params.pop("trust_remote_code", None)
+
         self.model = LLM(
             model=hf_model_name,
             dtype="auto",
